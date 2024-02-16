@@ -1,0 +1,30 @@
+services:
+  reservations:
+    build:
+      context: .
+      dockerfile: ./apps/reservations/Dockerfile
+      target: development
+    command: pnpm run start:dev reservations
+    ports:
+      - '3000:3000'
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    networks:
+      - sleepr-net
+  mongo:
+    image: bitnami/mongodb:5.0
+    volumes:
+      - 'mongodb_data:/bitnami/mongodb'
+    ports:
+      - 27017:27017
+    networks:
+      - sleepr-net
+
+networks:
+  sleepr-net:
+    name: sleepr-net
+    driver: bridge
+
+volumes:
+  mongodb_data:
