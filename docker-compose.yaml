@@ -30,6 +30,22 @@ services:
       - sleepr-net
     env_file:
       - ./apps/reservations/.env
+
+  payments:
+    build:
+      context: .
+      dockerfile: ./apps/payments/Dockerfile
+      target: development
+    command: pnpm run start:dev payments
+    env_file:
+      - ./apps/payments/.env
+    ports:
+      - '3003:3003'
+    volumes:
+      - .:/usr/src/app
+    networks:
+      - sleepr-net
+
   mongo:
     image: bitnami/mongodb:5.0
     volumes:
