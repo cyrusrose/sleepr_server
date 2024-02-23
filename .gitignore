@@ -43,6 +43,8 @@ lerna-debug.log*
 # .env.local
 **/payments/.env
 **/notifications/.env
+k8s/**/notifications/configmap.yaml
+k8s/**/payments/configmap.yaml
 
 # temp directory
 .temp

@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: reservations
+  name: reservations-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: reservations
+  template:
+    metadata:
+      labels:
+        app: reservations
+    spec:
+      containers:
+        - image: reservations
+          name: reservations
+          imagePullPolicy: Never
+          envFrom:
+            - configMapRef:
+                name: reservations
+          ports:
+            - containerPort: 3004

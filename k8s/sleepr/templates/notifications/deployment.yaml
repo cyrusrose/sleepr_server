@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: notifications
+  name: notifications-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: notifications
+  template:
+    metadata:
+      labels:
+        app: notifications
+    spec:
+      containers:
+        - image: notifications
+          name: notifications
+          imagePullPolicy: Never
+          envFrom:
+            - configMapRef:
+                name: notifications
+          ports:
+            - containerPort: 3000

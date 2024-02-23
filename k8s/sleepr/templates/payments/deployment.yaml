@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: payments
+  name: payments-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: payments
+  template:
+    metadata:
+      labels:
+        app: payments
+    spec:
+      containers:
+        - image: payments
+          name: payments
+          imagePullPolicy: Never
+          envFrom:
+            - configMapRef:
+                name: payments
+          ports:
+            - containerPort: 3001

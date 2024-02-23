@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: auth
+  name: auth-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: auth
+  template:
+    metadata:
+      labels:
+        app: auth
+    spec:
+      containers:
+        - image: auth
+          name: auth
+          imagePullPolicy: Never
+          envFrom:
+            - configMapRef:
+                name: auth
+          ports:
+            - containerPort: 3002
+            - containerPort: 3003
