@@ -28,3 +28,7 @@ helm install sleepr .
 helm upgrade sleepr .
 
 kubectl create service clusterip notifications --tcp=3000 --dry-run=client -o yaml > ./sleepr/templates/notifications/service.yaml
+
+kubectl get svc
+
+kubectl rollout restart deployment notifications
