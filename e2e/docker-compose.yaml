@@ -1,0 +1,56 @@
+services:
+  e2e:
+    build:
+      dockerfile: ./Dockerfile
+    volumes:
+      - ./specs:/usr/src/app/specs
+    networks:
+      - sleepr-testnet
+    depends_on:
+      - reservations
+      - auth
+      - payments
+      - notifications
+      - mongo
+
+  auth:
+    image: auth
+    ports:
+      - '3001:3001'
+    networks:
+      - sleepr-testnet
+    env_file:
+      - ../apps/auth/.env
+
+  reservations:
+    image: reservations
+    ports:
+      - '3000:3000'
+    networks:
+      - sleepr-testnet
+    env_file:
+      - ../apps/reservations/.env
+
+  payments:
+    image: payments
+    env_file:
+      - ../apps/payments/.env
+    networks:
+      - sleepr-testnet
+
+  notifications:
+    image: notifications
+    env_file:
+      - ../apps/notifications/.env
+    networks:
+      - sleepr-testnet
+
+  mongo:
+    image: bitnami/mongodb:5.0
+    networks:
+      - sleepr-testnet
+
+networks:
+  sleepr-testnet:
+    name: sleepr-testnet
+    driver: bridge
