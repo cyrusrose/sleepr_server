@@ -32,3 +32,9 @@ kubectl create service clusterip notifications --tcp=3000 --dry-run=client -o ya
 kubectl get svc
 
 kubectl rollout restart deployment notifications
+
+# proto
+
+protoc --plugin=./node_modules/.bin/protoc-gen-ts_proto --ts_proto_out=./ --ts_proto_opt=nestJs=true ./proto/notifications.proto
+protoc --plugin=./node_modules/.bin/protoc-gen-ts_proto --ts_proto_out=./ --ts_proto_opt=nestJs=true ./proto/auth.proto
+protoc --plugin=./node_modules/.bin/protoc-gen-ts_proto --ts_proto_out=./ --ts_proto_opt=nestJs=true ./proto/payments.proto
